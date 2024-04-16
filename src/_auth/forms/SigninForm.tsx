@@ -42,7 +42,10 @@ const SigninForm = () => {
 
     
     if(!session){
-      return toast({ title: 'Sign in failed1. Please try again. '})
+      return toast({
+        variant: "destructive",
+        title: "Sign in failed1. Please try again. ",
+      });
     }
 
 
@@ -98,7 +101,7 @@ const SigninForm = () => {
         <Button type="submit" className="shad-button_primary">
           {isUserLoading ? (
             <div className="flexcenter gap-4">
-              <Loader />  Loading...
+              <Loader /> 
             </div>
           ): "Sign-in" }
         </Button>

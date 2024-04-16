@@ -41,7 +41,10 @@ const SignupForm = () => {
       const newUser = await createUserAccount(user);
   
       if (!newUser) {
-        toast({ title: 'Sign up failed1. Please try again.', type: 'error' });
+        toast({
+          title: "newUser Sign up failed. Please try again.",
+          variant: "destructive",
+        });
         return;
       }
   
@@ -51,8 +54,11 @@ const SignupForm = () => {
       });
   
       if (!session) {
-        toast({ title: 'Sign in failed2. Please try again.', type: 'error' });
-        navigate("/sign-in");
+        toast({
+          variant: "destructive",
+          title: " session Sign in failed. Please try again.",
+        });
+        // navigate("/sign-in");
         return;
       }
   
@@ -61,13 +67,16 @@ const SignupForm = () => {
       if (isLoggedIn) {
         form.reset();
         navigate('/');
-        toast({ title: 'Sign up successful!', type: 'success' });
+        toast({ title: 'Sign up successful!' });
       } else {
         navigate('/sign-in'); //toast({ title: 'Sign up failed3. Please try again.', type: 'error' });
       }
     } catch (error) {
       console.error('Error during sign-up:', error);
-      toast({ title: 'An unexpected error occurred. Please try again.', type: 'error' });
+      toast({
+        variant: "destructive",
+        title: "An unexpected error occurred. Please try again.",
+      });
     }
   }
   
