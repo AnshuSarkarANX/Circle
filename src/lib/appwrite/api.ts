@@ -101,7 +101,7 @@ export async function createPost(post:INewPost){
         const uploadedFile = await uploadFile(post.file[0]);
         if(!uploadedFile) throw Error;
         //Get fileUrl
-         const fileUrl = getFilePreview(uploadedFile.$id);
+         const fileUrl = await getFilePreview(uploadedFile.$id);
          if (!fileUrl) {
             deleteFile(uploadedFile.$id)
             throw Error
@@ -126,10 +126,13 @@ export async function createPost(post:INewPost){
                   if(!newPost){
                 deleteFile(uploadedFile.$id);
                 throw Error;
+                
             }
+
             return newPost;
     } catch (error) {
        console.log(error); 
+
     }
 }
 export async function uploadFile(file:File) {

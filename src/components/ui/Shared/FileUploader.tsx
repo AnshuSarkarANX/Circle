@@ -8,7 +8,7 @@ import { Button } from "../button";
 const FileUploader = ({fieldChange, mediaUrl }:FileUploaderProps) => {
   const [file, setFile] = useState<File[]>([]);
   const [fileUrl, setFileUrl] = useState("");
-  const onDrop = useCallback(
+  const   onDrop =  useCallback(
     (acceptedFiles: FileWithPath[]) => {
     setFile(acceptedFiles);
     fieldChange(acceptedFiles);
@@ -44,7 +44,7 @@ const FileUploader = ({fieldChange, mediaUrl }:FileUploaderProps) => {
             Drag photo here
           </h3>
           <p className="text-light-4 small-regular mb-5">SVG, PNG, JPG</p>
-          <Button className=" shad-button_dark_4">Select From device</Button>
+          <Button className="shad-button_dark_4" type="button">Select From device</Button>
         </div>
       )}
     </div>
