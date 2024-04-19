@@ -1,4 +1,5 @@
-import Loader from "@/components/shared/Loader";
+import Loader from "@/components/ui/shared/Loader";
+import PostCard from "@/components/ui/shared/PostCard";
 import { useGetRecentPost } from "@/lib/react-query/queriesAndMutations";
 const Home = () => {
   const { data: posts, isPending: isPostLoading, isError: isErrorPosts } = useGetRecentPosts();
