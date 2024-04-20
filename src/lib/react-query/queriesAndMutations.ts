@@ -3,13 +3,11 @@ import{
     useQuery, //for fetching the data
     useMutation, //for modifying the data
     useQueryClient, 
-    useInfiniteQuery,
 
 } from '@tanstack/react-query'
 import { createPost, createUserAccount, deletePost, deleteSavedPost, getCurrentUser, getPostById, getRecentPosts, likePost, savePost, signInAccount, signOutAccount, updatePost } from '../appwrite/api'
 import { INewPost, INewUser, IUpdatePost } from '@/types'
 import { QUERY_KEYS } from './queryKeys'
-import { string } from 'zod'
 
 //The arrow function returns a call to use mutation.
 export const useCreateUserAccount = () => {
