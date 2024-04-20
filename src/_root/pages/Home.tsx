@@ -1,6 +1,7 @@
 import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
 import { Loader } from "lucide-react";
 import { Models } from "appwrite";
+import PostCard from "@/components/Shared/PostCard";
 
 const Home = () => {
 const {data:posts ,isPending : isPostLoading ,isError:isErrorPosts} =useGetRecentPosts();
@@ -14,7 +15,7 @@ const {data:posts ,isPending : isPostLoading ,isError:isErrorPosts} =useGetRecen
           ):(
             <ul  className="flex flex-col flex-1 gap-9 w-full">
               {posts?.documents.map((post: Models.Document) => (
-                  <li>{post.caption}</li>
+                 <PostCard post={post} key={post.$id}/>
               ))}
             </ul>
           )}

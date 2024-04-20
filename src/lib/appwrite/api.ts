@@ -102,7 +102,7 @@ export async function createPost(post:INewPost){
         const uploadedFile = await uploadFile(post.file[0]);
         if(!uploadedFile) throw Error;
         //Get fileUrl
-         const fileUrl = await getFilePreview(uploadedFile.$id);
+         const fileUrl = getFilePreview(uploadedFile.$id);
          if (!fileUrl) {
             deleteFile(uploadedFile.$id)
             throw Error
@@ -151,7 +151,7 @@ export async function uploadFile(file:File) {
     }
 }
 
-export async function getFilePreview(fileId:string){
+export function getFilePreview(fileId:string){
  try {
     const fileUrl=storage.getFilePreview(
         appwriteConfig.storageId,
@@ -180,5 +180,53 @@ export async function getRecentPosts() {
         [Query.orderDesc('$createdAt'),Query.limit(20)])
         if(!posts) throw Error;
         return posts;
+    
+}
+export async function likePost(postId:string, likesArray:string[]) {
+    try {
+        const updatepost = await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.postCollectionId,
+            postId,
+            {
+                likes:likesArray
+            })
+            if(!updatepost) throw Error;
+            return updatepost;
+    } catch (error) {
+        console.log(error);
+    }
+    
+}
+export async function savePost(postId:string,userId:string) {
+    try {
+        const updatepost = await databases.createDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.savesCollectionId,
+            ID.unique(),
+            {   
+                post:postId,
+                users:userId
+                
+            })
+            if(!updatepost) throw Error;
+            return updatepost;
+    } catch (error) {
+        console.log(error);
+    }
+    
+}
+export async function deleteSavedPost(savedRecordId:string) {
+    try {
+        const statusCode = await databases.deleteDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.savesCollectionId,
+            savedRecordId,
+            )
+            if(!statusCode) throw Error;
+            return {status: "OK"};
+    } catch (error) {
+        console.log(error);
+    }
     
 }

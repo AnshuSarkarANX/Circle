@@ -6,7 +6,7 @@ import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
-import FileUploader from "../ui/Shared/FileUploader";
+import FileUploader from "../Shared/FileUploader";
 import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations";
