@@ -226,6 +226,7 @@ export async function deleteSavedPost(savedRecordId:string) {
             if(!statusCode) throw Error;
             return {status: "OK"};
     } catch (error) {
+        console.log(savedRecordId);
         console.log(error);
     }
     

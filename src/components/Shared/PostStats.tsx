@@ -6,7 +6,7 @@ import {
 } from "@/lib/react-query/queriesAndMutations";
 import { checkIsLiked } from "@/lib/utils";
 import { Models } from "appwrite";
-import { Loader } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type PostStatsProps = {
@@ -20,8 +20,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const [saved, setSaved] = useState(false);
   const { mutate: likePost } = useLikePosts();
   const { mutate: savePost, isPending: isSavingPost } = useSavePosts();
-  const { mutate: deleteSavedPost, isPending: isDeletingSavedPost } =
-    useDeleteSavedPosts();
+  const { mutate: deleteSavedPost, isPending: isDeletingSavedPost } = useDeleteSavedPosts();
   const { data: currentUser } = useGetCurrentUser();
   const savedPostRecord = currentUser?.save.find(
     (record: Models.Document) => record.post.$id === post.$id
@@ -47,11 +46,10 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
 
     if (savedPostRecord) {
       setSaved(false);
-      deleteSavedPost(savedPostRecord.id)
-      console.log(savedPostRecord);
+      deleteSavedPost({savedRecordId:savedPostRecord.$id});
     } else {
-      savePost({ postId: post.$id, userId });
       setSaved(true);
+      savePost({ postId: post.$id, userId });
     }
   };
 
@@ -74,7 +72,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
       </div>
       <div className="flex gap-2">
         {isSavingPost || isDeletingSavedPost ? (
-          <Loader />
+          <Loader2Icon  width={20} height={20}/>
         ) : (
           <img
             src={saved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}
