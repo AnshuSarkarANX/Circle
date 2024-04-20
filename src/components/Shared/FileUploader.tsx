@@ -1,19 +1,21 @@
 import { useCallback, useState } from "react";
-import { useDropzone,FileWithPath } from "react-dropzone";
-import { Button } from "../button";
- type FileUploaderProps = {
+import { useDropzone, FileWithPath } from "react-dropzone";
+import { Button } from "../ui/button";
+type FileUploaderProps = {
   fieldChange: (FILES: File[]) => void;
   mediaUrl: string;
- }
-const FileUploader = ({fieldChange, mediaUrl }:FileUploaderProps) => {
+};
+const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const [file, setFile] = useState<File[]>([]);
-  const [fileUrl, setFileUrl] = useState("");
-  const   onDrop =  useCallback(
+  const [fileUrl, setFileUrl] = useState(mediaUrl);
+  const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
-    setFile(acceptedFiles);
-    fieldChange(acceptedFiles);
-    setFileUrl(URL.createObjectURL(acceptedFiles[0]))
-  }, [file]);
+      setFile(acceptedFiles);
+      fieldChange(acceptedFiles);
+      setFileUrl(URL.createObjectURL(acceptedFiles[0]));
+    },
+    [file]
+  );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
@@ -28,9 +30,10 @@ const FileUploader = ({fieldChange, mediaUrl }:FileUploaderProps) => {
       <input {...getInputProps()} className="cursor-pointer " />
       {fileUrl ? (
         <>
-        <div className="flex flex-1 justify-center w-full p-5 lg:p-10"><img src={fileUrl} alt="image" className="file_uploader-img"/>
-        </div>
-        <p className="file_uploader-label">Click or drag photo to replace</p>
+          <div className="flex flex-1 justify-center w-full p-5 lg:p-10">
+            <img src={fileUrl} alt="image" className="file_uploader-img" />
+          </div>
+          <p className="file_uploader-label">Click or drag photo to replace</p>
         </>
       ) : (
         <div className="file_uploader-box">
@@ -44,7 +47,9 @@ const FileUploader = ({fieldChange, mediaUrl }:FileUploaderProps) => {
             Drag photo here
           </h3>
           <p className="text-light-4 small-regular mb-5">SVG, PNG, JPG</p>
-          <Button className="shad-button_dark_4" type="button">Select From device</Button>
+          <Button className="shad-button_dark_4" type="button">
+            Select From device
+          </Button>
         </div>
       )}
     </div>

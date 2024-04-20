@@ -1,18 +1,17 @@
-import { Link, useNavigate } from "react-router-dom"
-import { Button } from "../button"
-import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations"
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
+import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
 import { useEffect } from "react";
 import { useUserContext } from "@/context/AuthContext";
 
 const Topbar = () => {
-    const { mutate: signOut, isSuccess } = useSignOutAccount();
-    const navigate = useNavigate();
-    const {user} = useUserContext()
- 
-    useEffect(()=>{
-        if(isSuccess)  navigate(0)
-    
-    },[isSuccess])
+  const { mutate: signOut, isSuccess } = useSignOutAccount();
+  const navigate = useNavigate();
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    if (isSuccess) navigate(0);
+  }, [isSuccess]);
   return (
     <section className="topbar">
       <div className="flex-between py-4 px-5">
@@ -43,6 +42,6 @@ const Topbar = () => {
       </div>
     </section>
   );
-}
+};
 
-export default Topbar
+export default Topbar;
