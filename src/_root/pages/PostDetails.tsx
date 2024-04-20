@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
 import { formatRelativeTime } from "@/lib/utils";
-import { CalendarDays, CircleSlashIcon, Loader } from "lucide-react";
+import {  Loader } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
 const PostDetails = () => {
@@ -39,7 +39,7 @@ const PostDetails = () => {
                   </p>
                   <div className="flex flex-center gap-2 text-light-3 ">
                     <p className="subtle-semibold lg:small-regular">
-                      {formatRelativeTime(post?.$createdAt)}
+                      {formatRelativeTime(post?.$createdAt || '')}
                     </p>
                     -
                     <p className="subtle-semibold lg:small-regular">
