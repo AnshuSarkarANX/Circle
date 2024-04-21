@@ -39,7 +39,7 @@ const PostDetails = () => {
                   </p>
                   <div className="flex flex-center gap-2 text-light-3 ">
                     <p className="subtle-semibold lg:small-regular">
-                      {formatRelativeTime(post?.$createdAt || '')}
+                      {formatRelativeTime(post?.$createdAt || "")}
                     </p>
                     -
                     <p className="subtle-semibold lg:small-regular">
@@ -48,21 +48,21 @@ const PostDetails = () => {
                   </div>
                 </div>
               </Link>
-              <div
-                className={`flex-center gap-4 ${
-                  user.id !== post?.creator.$id && "hidden"
-                }`}
-              >
+              <div className="flex-center gap-4">
                 <Link to={`/update-post/${post?.$id}`}>
                   <img
                     src="/assets/icons/edit.svg"
-                    className="w-8 h-8 lg:w-10 lg:h-10"
+                    className={`w-8 h-8 lg:w-10 lg:h-10 ${
+                      user.id !== post?.creator.$id && "hidden"
+                    }`}
                   />
                 </Link>
                 <Button
                   onClick={handleDeletePost}
                   variant="ghost"
-                  className="ghost_detailsdelete_btn"
+                  className={`ghost_detailsdelete_btn ${
+                    user.id !== post?.creator.$id && "hidden"
+                  }`}
                 >
                   <img
                     src="/assets/icons/delete.svg"
@@ -84,7 +84,7 @@ const PostDetails = () => {
               </ul>
             </div>
             <div className="w-full">
-              <PostStats post={post} userId={user.id}/>
+              <PostStats post={post} userId={user.id} />
             </div>
           </div>
         </div>
