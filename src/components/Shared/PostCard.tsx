@@ -3,15 +3,20 @@ import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 import PostStats from "./PostStats";
 import { formatRelativeTime } from "@/lib/utils";
+import { useInView } from "react-intersection-observer";
 
 type PostCardProps = {
   post: Models.Document;
 };
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
-  
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.7,
+  });
+
   return (
-    <div className="post-card">
+    <div className="post-card" ref={ref}>
       <div className="flex-between">
         <div className="flex items-center gap-3">
           <Link to={`/profile/${post.creator.$id}`}>
@@ -26,7 +31,7 @@ const PostCard = ({ post }: PostCardProps) => {
           </Link>
           <div className="flex flex-col">
             <p className="base-medium lg:body-bold text-light-1">
-              {post.creator.name}
+              {post.creator.name || "loading"}
             </p>
             <div className="flex flex-start gap-1 text-light-3 ">
               <p className="subtle-semibold lg:small-regular">
@@ -67,11 +72,19 @@ const PostCard = ({ post }: PostCardProps) => {
             ))}
           </ul>
         </div>
-        <img
-          src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
-          className="post-card_img"
-          alt="post_image"
-        />
+        {inView ? (
+          <img
+            src={post.imageUrl || "/assets/images/giphy.webp"}
+            className="post-card_img"
+            alt="post_image"
+          />
+        ) : (
+          <img
+            src={"/assets/images/AnimationY.gif"}
+            className="post-card_img"
+            alt="post_image"
+          />
+        )}
       </Link>
       <PostStats post={post} userId={user.id} />
     </div>
